@@ -4,6 +4,7 @@ public class Demo
 {
     public static void main(String[] args)
     {
-        StartMenu startMenu = new StartMenu("GwentProject");
+        Scene mainScene = new Scene("Gwent Demo");
+        //StartMenu startMenu = new StartMenu();
     }
 }
