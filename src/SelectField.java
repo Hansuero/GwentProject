@@ -6,18 +6,14 @@ import java.io.IOException;
 
 public class SelectField extends JPanel
 {
-    public void showImg(Scene scene)
-    {
-        PictureView selectBGView = new PictureView();
-        scene.setContentPane(selectBGView);
-        try
-        {
-            Image BGImage = ImageIO.read(new File("./img/field/Selectfield.png"));
-            selectBGView.setImage(BGImage);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+    ImageIcon icon;
+    Image img;
+    SelectField(){
+        icon=new ImageIcon(getClass().getResource("Selectfield.png"));
+        img=icon.getImage();
+    }
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(img,0,0,getWidth(),getHeight(),this);
     }
 }
