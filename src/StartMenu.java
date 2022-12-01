@@ -1,34 +1,53 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
 
 public class StartMenu extends JPanel
 {
-    ImageIcon icon;
-    Image img;
+    ImageIcon buttonIcon;
+    ImageIcon BGIcon;
+    Image BGImage;
     JButton startButton;
     JButton exitButton;
-    StartMenu(Scene scene){
-        startButton=new JButton("Start");
-        icon=new ImageIcon(getClass().getResource("menu.jpeg"));
-        img=icon.getImage();
-        startButton.addActionListener(e -> {
-            System.out.println("按钮被点击");
-            SelectField selectField=new SelectField();
-            scene.remove(this);
-            scene.add(selectField);
+
+    StartMenu(Scene scene)
+    {
+        //生成背景
+        BGIcon = new ImageIcon("./img/field/menu.jpeg");
+        BGImage = BGIcon.getImage();
+        //生成StartButton
+        buttonIcon = new ImageIcon("./img/field/game.jpg");
+        startButton = new JButton(buttonIcon);
+        startButton.setSize(new Dimension(150, 50));
+        startButton.setMargin(new Insets(-3,-3,-3,-3));
+        startButton.setBorderPainted(false);
+        startButton.addActionListener(e ->
+        {
+            SelectField selectField = new SelectField();
+            scene.setContentPane(selectField);
             scene.setVisible(true);
         });
+
         this.add(startButton);
+
+        //生成ExitButton
+        buttonIcon = new ImageIcon("./img/field/exit.jpg");
+        exitButton = new JButton(buttonIcon);
+        exitButton.setSize(new Dimension(150, 50));
+        exitButton.setMargin(new Insets(-3,-3,-3,-3));
+        exitButton.setBorderPainted(false);
+        exitButton.addActionListener(e ->
+        {
+            System.exit(0);
+        });
+        this.add(exitButton);
+
     }
-    public void paintComponent(Graphics g) {
+
+    public void paintComponent(Graphics g)
+    {
         super.paintComponent(g);
-        g.drawImage(img,0,0,getWidth(),getHeight(),this);
+        g.drawImage(BGImage, 0, 0, getWidth(), getHeight(), this);
+
     }
 
 }
