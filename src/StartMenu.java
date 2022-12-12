@@ -24,7 +24,14 @@ public class StartMenu extends JPanel
         {
             SelectField selectField = new SelectField();
             scene.setContentPane(selectField);
-            scene.setVisible(true);
+            scene.setVisible(true);//切换为选卡界面
+            //然后要生成需要的卡槽，初始化好一开始的总卡组，
+            CardSlot library = new CardSlot();//总牌库
+            //大小，坐标均未知
+            library.setSize(1990,270);
+            scene.add(library);
+            //在这一步前应该完成对卡牌的初始化并添加到总牌库
+            library.setVisible(true);
         });
 
         this.add(startButton);

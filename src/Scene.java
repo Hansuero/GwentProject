@@ -10,7 +10,7 @@ public class Scene extends JFrame
     public Scene(String title)
     {
         setTitle("Gwent Demo");
-        setSize(800, 500);
+        setSize(1960, 1080);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         StartMenu startMenu = new StartMenu(this);
