@@ -139,6 +139,7 @@ public class PlayModel {
             p2MeleeBoard.clear();
             p2RangedBoard.clear();
             p2MagicBoard.clear();
+
         }
         // Draw cards
         for(int i = 0; i < HAND_SIZE; ++i) {

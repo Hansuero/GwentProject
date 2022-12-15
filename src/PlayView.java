@@ -20,28 +20,57 @@ public class PlayView extends JFrame {
     public JLabel p1Score, p2Score, p1Power, p2Power, weatherLabel, weatherDsc;
     // Array for the "card backs" that the opponent will have
     public JLabel[] opponentCards;
-    
-    
+
+    public void setBg()
+    {
+        ((JPanel)this.getContentPane()).setOpaque(false);
+        ImageIcon img = new ImageIcon
+                ("./res/image/bg.png");
+        JLabel background = new JLabel(img);
+        this.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
+        background.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
+    }
 
     public PlayView() {
         super(PROGRAM_NAME);
-        this.setSize(1280, 1024);
+        this.setSize(810, 605);
+        this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        ImageIcon bg=new ImageIcon("res/image/bg.png");
+
+
+
+
 
         // Initialize the Jpanel and Jlabel objects
         leftPanel = new JPanel();
         rightPanel = new JPanel();
+        setBg();
+        leftPanel.setOpaque(false);
+        rightPanel.setOpaque(false);
         p1Melee = new JPanel();
+        p1Melee.setOpaque(false);
         p1Ranged = new JPanel();
+        p1Ranged.setOpaque(false);
         p1Magic = new JPanel();
+        p1Magic.setOpaque(false);
         p2Melee = new JPanel();
+        p2Melee.setOpaque(false);
         p2Ranged = new JPanel();
+        p2Ranged.setOpaque(false);
         p2Magic = new JPanel();
+        p2Magic.setOpaque(false);
         weatherPanel = new JPanel();
+        weatherPanel.setOpaque(false);
         p1Hand = new JPanel();
+        p1Hand.setOpaque(false);
         p2Hand = new JPanel();
+        p2Hand.setOpaque(false);
         gameInfo = new JPanel();
+        gameInfo.setOpaque(false);
         score = new JPanel();
+        score.setOpaque(false);
         // The following default messages will be replaced by the controller
         p1Score = new JLabel("Player 1 Score", JLabel.RIGHT);       
         p2Score = new JLabel("Player 2 Score", JLabel.LEFT);
@@ -58,20 +87,29 @@ public class PlayView extends JFrame {
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         rightPanel.setBorder(BorderFactory.createEmptyBorder());
         p1Melee.setLayout(new FlowLayout());
-        p1Melee.setPreferredSize(new Dimension(50,70));
+        p1Melee.setPreferredSize(new Dimension(500,100));
         p1Melee.setBorder(BorderFactory.createTitledBorder("Melee"));
+
         p1Ranged.setLayout(new FlowLayout());
-        p1Ranged.setPreferredSize(new Dimension(50,70));
+        p1Ranged.setPreferredSize(new Dimension(500,100));
         p1Ranged.setBorder(BorderFactory.createTitledBorder("Ranged"));
+
         p1Magic.setLayout(new FlowLayout());
-        p1Magic.setPreferredSize(new Dimension(50,70));
+        p1Magic.setPreferredSize(new Dimension(500,100));
         p1Magic.setBorder(BorderFactory.createTitledBorder("Magic"));
+
         p2Melee.setLayout(new FlowLayout());
+        p2Melee.setPreferredSize(new Dimension(500,100));
         p2Melee.setBorder(BorderFactory.createTitledBorder("Melee"));
+
         p2Ranged.setLayout(new FlowLayout());
+        p2Ranged.setPreferredSize(new Dimension(500,100));
         p2Ranged.setBorder(BorderFactory.createTitledBorder("Ranged"));
+
         p2Magic.setLayout(new FlowLayout());
+        p2Magic.setPreferredSize(new Dimension(500,100));
         p2Magic.setBorder(BorderFactory.createTitledBorder("Magic"));
+
         p1Hand.setLayout(new FlowLayout(PlayModel.HAND_SIZE));
         p1Hand.setBorder(BorderFactory.createTitledBorder("Hand"));
         p2Hand.setLayout(new FlowLayout(PlayModel.HAND_SIZE));
@@ -112,12 +150,30 @@ public class PlayView extends JFrame {
         gameInfo.add(p1Power);
         setVisible(true);
     }
+    class BackgroundPanel extends JPanel
+    {
+        Image im;
+        public BackgroundPanel(Image im)
+        {
+            this.im=im;
+            this.setOpaque(true);                    //设置控件不透明,若是false,那么就是透明
+        }
+        //Draw the background again,继承自Jpanle,是Swing控件需要继承实现的方法,而不是AWT中的Paint()
+        public void paintComponent(Graphics g)       //绘图类,详情可见博主的Java 下 java-Graphics
+        {
+            super.paintComponents(g);
+            g.drawImage(im,0,0,this.getWidth(),this.getHeight(),this);  //绘制指定图像中当前可用的图像。图像的左上角位于该图形上下文坐标空间的 (x, y)。图像中的透明像素不影响该处已存在的像素
+
+        }
+    }
+
 
     /**
      * Display the Weather conditions on the window, something of a "cousin" to 
      * PlayModel.calculatePower() for the graphical end.
      * @param condition
      */
+
     public void setWeather(PlayModel.Weather condition) {
         switch(condition) {
         case CLEAR:
@@ -213,6 +269,19 @@ public class PlayView extends JFrame {
         p2Melee.removeAll();
         p2Ranged.removeAll();
         p2Magic.removeAll();
+        p1Magic.repaint();
+        p1Magic.setVisible(true);
+        p1Melee.repaint();
+        p1Melee.setVisible(true);
+        p1Ranged.repaint();
+        p1Ranged.setVisible(true);
+        p2Magic.repaint();
+        //p2Magic.setVisible(true);
+        p2Melee.repaint();
+        //p2Melee.setVisible(true);
+        p2Ranged.repaint();
+        //p2Ranged.setVisible(true);
+
     }
 
 
