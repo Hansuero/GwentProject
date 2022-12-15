@@ -1,0 +1,180 @@
+MELEE
+1
+Goblin Creep
+MELEE
+2
+Peasant
+MELEE
+3
+Footsoldier
+MELEE
+4
+Viking Raider
+MELEE
+5
+Samurai
+MELEE
+6
+Knight
+MELEE
+7
+Rock Troll
+MELEE
+8
+Holy Paladin
+MELEE
+9
+Black Knight
+MELEE
+10
+Ice Giant
+RANGED
+1
+Goblin Slingshot
+RANGED
+2
+Diseased Zombie
+RANGED
+3
+Human Archer
+RANGED
+4
+Dwarven Blunderbuss
+RANGED
+5
+Catapult
+RANGED
+6
+Ballista
+RANGED
+7
+Trebuchet
+RANGED
+8
+Elven Ranger
+RANGED
+9
+Siege Engine
+RANGED
+10
+Blessed Archer
+MAGIC
+1
+Goblin Shaman
+MAGIC
+2
+Magician Apprentice
+MAGIC
+3
+Medicine Man
+MAGIC
+4
+Young Witch
+MAGIC
+5
+Cleric
+MAGIC
+6
+Lightning Wizard
+MAGIC
+7
+Necromancer
+MAGIC
+8
+Flame Sorceror
+MAGIC
+9
+Red Mage
+MAGIC
+10
+Golden Dragon
+MELEE
+1
+Goblin Creep
+MELEE
+2
+Peasant
+MELEE
+3
+Footsoldier
+MELEE
+4
+Viking Raider
+MELEE
+5
+Samurai
+MELEE
+6
+Knight
+MELEE
+7
+Rock Troll
+MELEE
+8
+Holy Paladin
+MELEE
+9
+Black Knight
+MELEE
+10
+Ice Giant
+RANGED
+1
+Goblin Slingshot
+RANGED
+2
+Diseased Zombie
+RANGED
+3
+Human Archer
+RANGED
+4
+Dwarven Blunderbuss
+RANGED
+5
+Catapult
+RANGED
+6
+Ballista
+RANGED
+7
+Trebuchet
+RANGED
+8
+Elven Ranger
+RANGED
+9
+Siege Engine
+RANGED
+10
+Blessed Archer
+MAGIC
+1
+Goblin Shaman
+MAGIC
+2
+Magician Apprentice
+MAGIC
+3
+Medicine Man
+MAGIC
+4
+Young Witch
+MAGIC
+5
+Cleric
+MAGIC
+6
+Lightning Wizard
+MAGIC
+7
+Necromancer
+MAGIC
+8
+Flame Sorceror
+MAGIC
+9
+Red Mage
+MAGIC
+10
+Golden Dragon

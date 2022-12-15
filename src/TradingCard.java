@@ -15,7 +15,7 @@ public class TradingCard extends JLabel {
      */
     TradingCard() {
         super();
-        this.setSize(50,70);
+        this.setSize(50,60);
         ImageIcon icon=new ImageIcon("res/image/Empty.jpg");
         icon=new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);
@@ -32,7 +32,7 @@ public class TradingCard extends JLabel {
      */
     TradingCard(int power, String name, CardType type) {
         super();
-        this.setSize(50,70);
+        this.setSize(50,60);
         ImageIcon icon=new ImageIcon("res/image/" + name + ".jpg");
         icon=new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);
@@ -49,7 +49,7 @@ public class TradingCard extends JLabel {
      */
     TradingCard(int power, String name, String type) {
         super();
-        this.setSize(50,70);
+        this.setSize(50,60);
         ImageIcon icon=new ImageIcon("res/image/" + name + ".jpg");
         icon=new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);
@@ -75,7 +75,7 @@ public class TradingCard extends JLabel {
      */
     TradingCard(TradingCard card) {
         super();
-        this.setSize(50,70);
+        this.setSize(50,60);
         ImageIcon icon=new ImageIcon("res/image/" + card.name + ".jpg");
         icon=new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);

@@ -27,7 +27,7 @@ public class PlayView extends JFrame {
         ImageIcon img = new ImageIcon
                 ("./res/image/bg.png");
         JLabel background = new JLabel(img);
-        this.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
+        this.getLayeredPane().add(background, Integer.valueOf(Integer.MIN_VALUE));
         background.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
     }
 
@@ -36,13 +36,8 @@ public class PlayView extends JFrame {
         this.setSize(810, 605);
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        ImageIcon bg=new ImageIcon("res/image/bg.png");
-
-
-
-
-
+        ImageIcon icon=new ImageIcon("res/image/Unknown.jpg");
+        this.setIconImage(icon.getImage());
         // Initialize the Jpanel and Jlabel objects
         leftPanel = new JPanel();
         rightPanel = new JPanel();
@@ -87,27 +82,27 @@ public class PlayView extends JFrame {
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         rightPanel.setBorder(BorderFactory.createEmptyBorder());
         p1Melee.setLayout(new FlowLayout());
-        p1Melee.setPreferredSize(new Dimension(500,100));
+        p1Melee.setPreferredSize(new Dimension(500,70));
         p1Melee.setBorder(BorderFactory.createTitledBorder("Melee"));
 
         p1Ranged.setLayout(new FlowLayout());
-        p1Ranged.setPreferredSize(new Dimension(500,100));
+        p1Ranged.setPreferredSize(new Dimension(500,70));
         p1Ranged.setBorder(BorderFactory.createTitledBorder("Ranged"));
 
         p1Magic.setLayout(new FlowLayout());
-        p1Magic.setPreferredSize(new Dimension(500,100));
+        p1Magic.setPreferredSize(new Dimension(500,70));
         p1Magic.setBorder(BorderFactory.createTitledBorder("Magic"));
 
         p2Melee.setLayout(new FlowLayout());
-        p2Melee.setPreferredSize(new Dimension(500,100));
+        p2Melee.setPreferredSize(new Dimension(500,70));
         p2Melee.setBorder(BorderFactory.createTitledBorder("Melee"));
 
         p2Ranged.setLayout(new FlowLayout());
-        p2Ranged.setPreferredSize(new Dimension(500,100));
+        p2Ranged.setPreferredSize(new Dimension(500,70));
         p2Ranged.setBorder(BorderFactory.createTitledBorder("Ranged"));
 
         p2Magic.setLayout(new FlowLayout());
-        p2Magic.setPreferredSize(new Dimension(500,100));
+        p2Magic.setPreferredSize(new Dimension(500,70));
         p2Magic.setBorder(BorderFactory.createTitledBorder("Magic"));
 
         p1Hand.setLayout(new FlowLayout(PlayModel.HAND_SIZE));
