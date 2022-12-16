@@ -10,10 +10,12 @@
  */
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class PlayController {
+public class PlayController
+{
     // Members
     PlayView gameWindow = new PlayView();
     PlayModel gameModel = new PlayModel();
@@ -24,24 +26,31 @@ public class PlayController {
     public static final int MAX_ROUNDS = 5;
 
     // Methods
-    public PlayController() {
+    public PlayController()
+    {
         gameModel.roundStart();
         drawHand();
         // Create the mouse listeners
         addMouseListeners();
     }
 
-    public void addMouseListeners() {
-        for (int i = 0; i < PlayModel.HAND_SIZE; ++i) {
-            gameModel.getP1Hand()[i].addMouseListener(new MouseListener() {
+    public void addMouseListeners()
+    {
+        for (int i = 0; i < PlayModel.HAND_SIZE; ++i)
+        {
+            gameModel.getP1Hand()[i].addMouseListener(new MouseListener()
+            {
                 @Override
-                public void mouseClicked(MouseEvent e) {
+                public void mouseClicked(MouseEvent e)
+                {
                     // Handle the view manip in here then pass to clicked() for
                     // Game manipulation
-                    try {
+                    try
+                    {
                         TradingCard selected = new TradingCard((TradingCard) e.getComponent());
                         clicked(selected);
-                    } catch (Exception ee) {
+                    } catch (Exception ee)
+                    {
                         WeatherCard selected = new WeatherCard(((WeatherCard) e.getComponent()));
                         clicked_w(selected);
                     }
@@ -49,36 +58,44 @@ public class PlayController {
                 }
 
                 @Override
-                public void mousePressed(MouseEvent e) {
+                public void mousePressed(MouseEvent e)
+                {
                 }
 
                 @Override
-                public void mouseReleased(MouseEvent e) {
+                public void mouseReleased(MouseEvent e)
+                {
                 }
 
                 @Override
-                public void mouseEntered(MouseEvent e) {
+                public void mouseEntered(MouseEvent e)
+                {
                 }
 
                 @Override
-                public void mouseExited(MouseEvent e) {
+                public void mouseExited(MouseEvent e)
+                {
                 }
 
             });
         }
     }
 
-    public void drawHand() {
-        for (int i = 0; i < PlayModel.HAND_SIZE; ++i) {
+    public void drawHand()
+    {
+        for (int i = 0; i < PlayModel.HAND_SIZE; ++i)
+        {
             gameWindow.p1Hand.add(gameModel.getP1Hand()[i]);
         }
     }
 
-    public void discardHand() {
+    public void discardHand()
+    {
         gameWindow.p1Hand.removeAll();
     }
 
-    public void game() {
+    public void game()
+    {
         if (gameModel.getP1Score() > gameModel.getP2Score())
             gameWindow.winScreen();
         else
@@ -87,8 +104,10 @@ public class PlayController {
 
     }
 
-    public void round() {
-        if (roundCount < MAX_ROUNDS) {
+    public void round()
+    {
+        if (roundCount < MAX_ROUNDS)
+        {
             // Zero out everything for the new round
             turnCount = 0;
             gameModel.p1TotalPower = 0;
@@ -101,12 +120,19 @@ public class PlayController {
             currentWeather = gameModel.weatherRoll(0);
             gameWindow.setWeather(currentWeather);
             gameWindow.setScore(gameModel.getP1Score(), gameModel.getP2Score());
-        } else {
+        }
+        else
+        {
+
+
+
+            gameWindow.setScore(gameModel.getP1Score(), gameModel.getP2Score());
             game();
         }
     }
 
-    public void turn(TradingCard card) {
+    public void turn(TradingCard card)
+    {
         playCard(card);
         cpuPlay(gameModel.cpuPlay());
         int power1 = gameModel.calculatePower(currentWeather,
@@ -117,10 +143,14 @@ public class PlayController {
         gameModel.p2TotalPower = 0;
         gameModel.p1TotalPower = 0;
         turnCount++;
-        if (turnCount == MAX_TURNS) {
-            if (power1 > power2) {
+        if (turnCount == MAX_TURNS)
+        {
+            if (power1 > power2)
+            {
                 gameModel.p1Score++;
-            } else if (power2 > power1) {
+            }
+            else if (power2 > power1)
+            {
                 gameModel.p2Score++;
             }
             discardHand();
@@ -130,7 +160,8 @@ public class PlayController {
         }
     }
 
-    public void turn_w(WeatherCard card) {
+    public void turn_w(WeatherCard card)
+    {
         playCard_w(card);
         cpuPlay(gameModel.cpuPlay());
         int power1 = gameModel.calculatePower(currentWeather,
@@ -141,10 +172,13 @@ public class PlayController {
         gameModel.p2TotalPower = 0;
         gameModel.p1TotalPower = 0;
         turnCount++;
-        if (turnCount == MAX_TURNS) {
-            if (power1 > power2) {
+        if (turnCount == MAX_TURNS)
+        {
+            if (power1 > power2)
+            {
                 gameModel.p1Score++;
-            } else if (power2 > power1) {
+            } else if (power2 > power1)
+            {
                 gameModel.p2Score++;
             }
             discardHand();
@@ -154,16 +188,20 @@ public class PlayController {
         }
     }
 
-    public void clicked(TradingCard card) {
+    public void clicked(TradingCard card)
+    {
         turn(card);
     }
 
-    public void clicked_w(WeatherCard card) {
+    public void clicked_w(WeatherCard card)
+    {
         turn_w(card);
     }
 
-    public void playCard_w(WeatherCard card) {
-        switch (card.getWeatherType()) {
+    public void playCard_w(WeatherCard card)
+    {
+        switch (card.getWeatherType())
+        {
             case CLEAR:
                 currentWeather = gameModel.weatherRoll(0);
                 break;
@@ -189,14 +227,17 @@ public class PlayController {
                 break;
         }
         gameWindow.setWeather(currentWeather);
-        for (int i = 0; i < PlayModel.HAND_SIZE; ++i) {
+        for (int i = 0; i < PlayModel.HAND_SIZE; ++i)
+        {
             if (card == gameModel.p1Hand[i])
                 gameModel.p1Hand[i] = null;
         }
     }
 
-    public void playCard(TradingCard card) {
-        switch (card.getType()) {
+    public void playCard(TradingCard card)
+    {
+        switch (card.getType())
+        {
             case DEBUG:
                 break;
             case MAGIC:
@@ -214,14 +255,17 @@ public class PlayController {
             default:
                 break;
         }
-        for (int i = 0; i < PlayModel.HAND_SIZE; ++i) {
+        for (int i = 0; i < PlayModel.HAND_SIZE; ++i)
+        {
             if (card == gameModel.p1Hand[i])
                 gameModel.p1Hand[i] = null;
         }
     }
 
-    public void cpuPlay(TradingCard card) {
-        switch (card.getType()) {
+    public void cpuPlay(TradingCard card)
+    {
+        switch (card.getType())
+        {
             case DEBUG:
                 break;
             case MAGIC:
@@ -238,6 +282,12 @@ public class PlayController {
                 break;
             default:
                 break;
+        }
+
+        for (int i = 0; i < PlayModel.HAND_SIZE; ++i)
+        {
+            if (card == gameModel.p2Hand[i])
+                gameModel.p2Hand[i] = null;
         }
     }
 }

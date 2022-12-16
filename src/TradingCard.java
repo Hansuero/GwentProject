@@ -1,26 +1,32 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class TradingCard extends JLabel {
+public class TradingCard extends JLabel
+{
     // Members
-    public enum CardType {MELEE, RANGED, MAGIC, DEBUG};
-    private int power; 
-    private String name;  
+    public enum CardType
+    {MELEE, RANGED, MAGIC, DEBUG}
+
+    ;
+    private int power;
+    private String name;
     private CardType type;
     private boolean isWeather;
 
     // Methods
+
     /**
      * Default constructor creates a useless card
      */
-    TradingCard() {
+    TradingCard()
+    {
         super();
-        this.isWeather=false;
-        this.setSize(50,60);
-        ImageIcon icon=new ImageIcon("res/image/Empty.jpg");
-        icon=new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
+        this.isWeather = false;
+        this.setSize(50, 60);
+        ImageIcon icon = new ImageIcon("res/image/Empty.jpg");
+        icon = new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);
-        power = 0; 
+        power = 0;
         name = "Default Card";
         type = CardType.DEBUG;
     }
@@ -28,12 +34,13 @@ public class TradingCard extends JLabel {
     /**
      * Create a new card if you have access to the CardType enum
      */
-    TradingCard(int power, String name, CardType type) {
+    TradingCard(int power, String name, CardType type)
+    {
         super();
-        this.isWeather=false;
-        this.setSize(50,60);
-        ImageIcon icon=new ImageIcon("res/image/" + name + ".jpg");
-        icon=new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
+        this.isWeather = false;
+        this.setSize(108, 200);
+        ImageIcon icon = new ImageIcon("res/image/" + name + ".jpg");
+        icon = new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);
         this.power = power;
         this.name = name;
@@ -43,38 +50,41 @@ public class TradingCard extends JLabel {
     /**
      * Create a new card using a String for its type
      */
-    TradingCard(int power, String name, String type) {
+    TradingCard(int power, String name, String type)
+    {
         super();
-        this.isWeather=false;
-        this.setSize(50,60);
-        ImageIcon icon=new ImageIcon("res/image/" + name + ".jpg");
-        icon=new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
+        this.isWeather = false;
+        this.setSize(108, 200);
+        ImageIcon icon = new ImageIcon("res/image/" + name + ".jpg");
+        icon = new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);
-        this.power = power; 
-        this.name = name; 
-        if (type.contains("MELEE")) {
+        this.power = power;
+        this.name = name;
+        if (type.contains("MELEE"))
+        {
             this.type = CardType.MELEE;
-        }
-        else if (type.contains("RANGED")) {
+        } else if (type.contains("RANGED"))
+        {
             this.type = CardType.RANGED;
-        }
-        else if (type.contains("MAGIC")) {
+        } else if (type.contains("MAGIC"))
+        {
             this.type = CardType.MAGIC;
-        }
-        else {
+        } else
+        {
             this.type = CardType.DEBUG;
         }
-    } 
+    }
 
     /**
      * Copy Constructor for TradingCard
      */
-    TradingCard(TradingCard card) {
+    TradingCard(TradingCard card)
+    {
         super();
-        this.isWeather=false;
-        this.setSize(50,60);
-        ImageIcon icon=new ImageIcon("res/image/" + card.name + ".jpg");
-        icon=new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
+        this.isWeather = false;
+        this.setSize(56, 85);
+        ImageIcon icon = new ImageIcon("res/image/" + card.name + ".jpg");
+        icon = new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);
         this.power = card.power;
         this.name = card.name;
@@ -84,25 +94,29 @@ public class TradingCard extends JLabel {
     /**
      * Accessor for power
      */
-    public int getPower() {
+    public int getPower()
+    {
         return power;
     }
 
     /**
      * Accessor for name
      */
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
     /**
      * Accessor for type
      */
-    public CardType getType() {
+    public CardType getType()
+    {
         return type;
     }
 
-    public void print() {
+    public void print()
+    {
         System.out.println(name + " " + type + " " + power);
     }
 }
