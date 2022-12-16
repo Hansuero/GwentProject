@@ -1,4 +1,6 @@
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Mike Limpus
@@ -15,7 +17,7 @@ public class PlayModel {
     public static final int HAND_SIZE = 6, BOARD_SIZE = 5;
     public int p1MeleePower, p1RangedPower, p1MagicPower, p1TotalPower, 
         p2MeleePower, p2RangedPower, p2MagicPower, p2TotalPower;
-    public TradingCard[] p1Hand, p2Hand; 
+    public JLabel[] p1Hand, p2Hand;
     public ArrayList<TradingCard> p1MeleeBoard = new ArrayList<>();
     public ArrayList<TradingCard> p1RangedBoard = new ArrayList<>();
     public ArrayList<TradingCard> p1MagicBoard = new ArrayList<>();
@@ -48,10 +50,6 @@ public class PlayModel {
      * will be intentionally somewhat obfuscated from the player. Only multiply/
      * divide are used to make power buffs and nerfs relative to the total row
      * power.
-     * @param condition
-     * @param meleeRow
-     * @param rangedRow
-     * @param magicRow
      * @return total power of a turn
      */
     public int calculatePower(Weather condition, ArrayList<TradingCard> meleeRow,
@@ -98,7 +96,6 @@ public class PlayModel {
     /**
      * Gets the power from each card in an arrayList and calculates the
      * cumilative power of all the TradingCards in the row
-     * @param row
      * @return power of that row of cards
      */
     public int calculateRowPower(ArrayList<TradingCard> row) {
@@ -143,10 +140,17 @@ public class PlayModel {
         }
         // Draw cards
         for(int i = 0; i < HAND_SIZE; ++i) {
+            if(i==5){
+                Random r=new Random();
+                int j=r.nextInt(2);
+                if(j==1){
+                    p1Hand[i]=p1Deck.getWeatherCard();
+                    continue;
+                }
+            }
             p1Hand[i] = p1Deck.drawCard();
             p2Hand[i] = p2Deck.drawCard();
         }
-
         cpuTracker = 0;
     }
 
@@ -158,39 +162,27 @@ public class PlayModel {
      * @return the "leftmost" card in p2Hand
      */
     public TradingCard cpuPlay() {
-        TradingCard tempCard = new TradingCard(p2Hand[cpuTracker]);
+        TradingCard tempCard = new TradingCard((TradingCard) p2Hand[cpuTracker]);
         p2Hand[cpuTracker] = null;
         cpuTracker++;
         return tempCard;
     }
 
-    /**
-     * Simulate rolling a ten sided die to decide the weather. Clear weather
-     * has a 40% chance, the rest have a 10%
-     * @return
-     */
-    public Weather weatherRoll() {
-        int random = (int) (Math.random() * 9);
+    public Weather weatherRoll(int random) {
         switch (random) {
             case 0:
                 return Weather.CLEAR;
-            case 1: 
-                return Weather.CLEAR;
-            case 2:
-                return Weather.CLEAR;
-            case 3:
-                return Weather.CLEAR;
-            case 4: 
+            case 1:
                 return Weather.ECLIPSE;
-            case 5:
+            case 2:
                 return Weather.FOG;
-            case 6:
+            case 3:
                 return Weather.HEATWAVE;
-            case 7:
+            case 4:
                 return Weather.NICEBREEZE;
-            case 8:
+            case 5:
                 return Weather.RAIN;
-            case 9: 
+            case 6:
                 return Weather.WIND;
             default:
                 return Weather.CLEAR;
@@ -200,13 +192,12 @@ public class PlayModel {
     /**
      * Accessors for neccessary members
      */
-
-    public TradingCard[] getP1Hand() {
+    public JLabel[] getP1Hand() {
         return p1Hand;
     }
 
     public TradingCard[] getP2Hand() {
-        return p2Hand;
+        return (TradingCard[]) p2Hand;
     }
 
     public int getP1Power() {

@@ -6,15 +6,16 @@ public class TradingCard extends JLabel {
     public enum CardType {MELEE, RANGED, MAGIC, DEBUG};
     private int power; 
     private String name;  
-    private CardType type;  
+    private CardType type;
+    private boolean isWeather;
 
     // Methods
-
     /**
      * Default constructor creates a useless card
      */
     TradingCard() {
         super();
+        this.isWeather=false;
         this.setSize(50,60);
         ImageIcon icon=new ImageIcon("res/image/Empty.jpg");
         icon=new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
@@ -26,12 +27,10 @@ public class TradingCard extends JLabel {
 
     /**
      * Create a new card if you have access to the CardType enum
-     * @param power
-     * @param name
-     * @param type
      */
     TradingCard(int power, String name, CardType type) {
         super();
+        this.isWeather=false;
         this.setSize(50,60);
         ImageIcon icon=new ImageIcon("res/image/" + name + ".jpg");
         icon=new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
@@ -43,12 +42,10 @@ public class TradingCard extends JLabel {
 
     /**
      * Create a new card using a String for its type
-     * @param power
-     * @param name
-     * @param type
      */
     TradingCard(int power, String name, String type) {
         super();
+        this.isWeather=false;
         this.setSize(50,60);
         ImageIcon icon=new ImageIcon("res/image/" + name + ".jpg");
         icon=new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
@@ -71,10 +68,10 @@ public class TradingCard extends JLabel {
 
     /**
      * Copy Constructor for TradingCard
-     * @param card
      */
     TradingCard(TradingCard card) {
         super();
+        this.isWeather=false;
         this.setSize(50,60);
         ImageIcon icon=new ImageIcon("res/image/" + card.name + ".jpg");
         icon=new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
@@ -83,9 +80,9 @@ public class TradingCard extends JLabel {
         this.name = card.name;
         this.type = card.type;
     }
+
     /**
      * Accessor for power
-     * @return power
      */
     public int getPower() {
         return power;
@@ -93,7 +90,6 @@ public class TradingCard extends JLabel {
 
     /**
      * Accessor for name
-     * @return name
      */
     public String getName() {
         return name;
@@ -101,15 +97,11 @@ public class TradingCard extends JLabel {
 
     /**
      * Accessor for type
-     * @return type
      */
-    public CardType getType() { 
+    public CardType getType() {
         return type;
     }
 
-    /**
-     * Debug print function
-     */
     public void print() {
         System.out.println(name + " " + type + " " + power);
     }

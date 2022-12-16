@@ -2,12 +2,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 import java.util.Scanner;
 
 public class TCDeck {
     // Members
     private ArrayList<TradingCard> deck = new ArrayList<>();
     private static ArrayList<TradingCard> cardList = new ArrayList<>();
+    private static ArrayList<WeatherCard> WeathercardList = new ArrayList<>();
     private static final int DECK_SIZE = 60;
     private boolean initialized = false;
 
@@ -51,8 +53,16 @@ public class TCDeck {
                 cardList.add(new TradingCard(tempPower, tempName, tempType)); 
             }
             scanner.close();
+            for(int i=0;i<2;i++){
+                WeathercardList.add(new WeatherCard("CLEAR"));
+                WeathercardList.add(new WeatherCard("ECLIPSE"));
+                WeathercardList.add(new WeatherCard("FOG"));
+                WeathercardList.add(new WeatherCard("HEATWAVE"));
+                WeathercardList.add(new WeatherCard("NICEBREEZE"));
+                WeathercardList.add(new WeatherCard("RAIN"));
+                WeathercardList.add(new WeatherCard("WIND"));
+            }
             initialized = true;
-
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found!" + 
@@ -93,6 +103,11 @@ public class TCDeck {
         return deck.remove(0);
     }
 
+    public WeatherCard getWeatherCard(){
+        Random t=new Random();
+        int i=t.nextInt(WeathercardList.size());
+        return WeathercardList.get(i);
+    }
     // DEBUG Main method, not main program entry point
     public static void main(String[] args) {
         TCDeck test = new TCDeck(false);
@@ -111,7 +126,5 @@ public class TCDeck {
         for (int i = 0; i < cardList.size(); i++) { 
             test2.deck.get(i).print();
         }
-
-
     }
 }
