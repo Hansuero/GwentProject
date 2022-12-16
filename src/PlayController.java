@@ -188,7 +188,7 @@ public class PlayController {
             default:
                 break;
         }
-
+        gameWindow.setWeather(currentWeather);
         for (int i = 0; i < PlayModel.HAND_SIZE; ++i) {
             if (card == gameModel.p1Hand[i])
                 gameModel.p1Hand[i] = null;
