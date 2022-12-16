@@ -21,7 +21,6 @@ public class StartMenu extends JFrame {
         ImageIcon icon=new ImageIcon("res/image/Unknown.jpg");
         this.setIconImage(icon.getImage());
         this.setBg();
-
     }
     public static void main(String[] args){
         StartMenu startMenu=new StartMenu();

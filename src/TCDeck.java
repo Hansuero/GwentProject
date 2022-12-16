@@ -106,7 +106,8 @@ public class TCDeck {
     public WeatherCard getWeatherCard(){
         Random t=new Random();
         int i=t.nextInt(WeathercardList.size());
-        return WeathercardList.get(i);
+        WeatherCard it=new WeatherCard(WeathercardList.get(i));
+        return it;
     }
     // DEBUG Main method, not main program entry point
     public static void main(String[] args) {

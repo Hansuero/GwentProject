@@ -17,7 +17,7 @@ public class PlayModel {
     public static final int HAND_SIZE = 6, BOARD_SIZE = 5;
     public int p1MeleePower, p1RangedPower, p1MagicPower, p1TotalPower, 
         p2MeleePower, p2RangedPower, p2MagicPower, p2TotalPower;
-    public JLabel[] p1Hand, p2Hand;
+    public JLabel[] p1Hand=new JLabel[100], p2Hand=new JLabel[100];
     public ArrayList<TradingCard> p1MeleeBoard = new ArrayList<>();
     public ArrayList<TradingCard> p1RangedBoard = new ArrayList<>();
     public ArrayList<TradingCard> p1MagicBoard = new ArrayList<>();
@@ -111,8 +111,8 @@ public class PlayModel {
      */
     public void initializeGame() {
 
-        p1Hand = new TradingCard[HAND_SIZE];
-        p2Hand = new TradingCard[HAND_SIZE]; 
+        p1Hand = new JLabel[HAND_SIZE];
+        p2Hand = new JLabel[HAND_SIZE];
 
         p1Deck.shuffle();
         p2Deck.shuffle();
@@ -144,7 +144,36 @@ public class PlayModel {
                 Random r=new Random();
                 int j=r.nextInt(2);
                 if(j==1){
-                    p1Hand[i]=p1Deck.getWeatherCard();
+                    int tt;
+                    tt=r.nextInt(7);
+                    if(tt==0){
+                        WeatherCard mid=new WeatherCard("CLEAR");
+                        p1Hand[i]=mid;
+                    }
+                    else if(tt==1){
+                        WeatherCard mid=new WeatherCard("ECLIPSE");
+                        p1Hand[i]=mid;
+                    }
+                    else if(tt==2){
+                        WeatherCard mid=new WeatherCard("FOG");
+                        p1Hand[i]=mid;
+                    }
+                    else if(tt==3){
+                        WeatherCard mid=new WeatherCard("HEATWAVE");
+                        p1Hand[i]=mid;
+                    }
+                    else if(tt==4){
+                        WeatherCard mid=new WeatherCard("NICEBREEZE");
+                        p1Hand[i]=mid;
+                    }
+                    else if(tt==5){
+                        WeatherCard mid=new WeatherCard("RAIN");
+                        p1Hand[i]=mid;
+                    }
+                    else if(tt==6){
+                        WeatherCard mid=new WeatherCard("WIND");
+                        p1Hand[i]=mid;
+                    }
                     continue;
                 }
             }

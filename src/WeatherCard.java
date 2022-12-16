@@ -13,7 +13,7 @@ public class WeatherCard extends JLabel {
         super();
         this.isWeather=true;
         this.setSize(50, 60);
-        ImageIcon icon = new ImageIcon("res/image/" + type + ".jpg");
+        ImageIcon icon = new ImageIcon("res/image/Unknown.jpg");
         icon = new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);
         if (type.contains("CLEAR")) {
@@ -36,7 +36,7 @@ public class WeatherCard extends JLabel {
     WeatherCard(WeatherCard card) {
         super();
         this.setSize(50, 60);
-        ImageIcon icon = new ImageIcon("res/image/" + card.Weathertype.toString() + ".jpg");
+        ImageIcon icon = new ImageIcon("res/image/Unknown.jpg");
         icon = new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);
         this.Weathertype = card.Weathertype;
