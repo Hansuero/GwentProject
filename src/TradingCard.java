@@ -6,7 +6,7 @@ public class TradingCard extends JLabel
     // Members
     public enum CardType
     {MELEE, RANGED, MAGIC, DEBUG}
-
+    private boolean hasAbility;
     ;
     private int power;
     private String name;
@@ -119,4 +119,42 @@ public class TradingCard extends JLabel
     {
         System.out.println(name + " " + type + " " + power);
     }
+
+    /**
+     * ID:[0]农民能力：复制对方已出卡牌中最高的点数
+     */
+    public void copyEnemyHighestPower(PlayModel gameModel)
+    {
+        int highestPower = 2;
+        for (TradingCard card : gameModel.p2MagicBoard)
+        {
+            if (card.getPower() > highestPower)
+            {
+                highestPower = card.getPower();
+            }
+        }
+        for (TradingCard card : gameModel.p2MeleeBoard)
+        {
+            if (card.getPower() > highestPower)
+            {
+                highestPower = card.getPower();
+            }
+        }
+        for (TradingCard card : gameModel.p2RangedBoard)
+        {
+            if (card.getPower() > highestPower)
+            {
+                highestPower = card.getPower();
+            }
+        }
+        this.power = highestPower;
+        ImageIcon icon = new ImageIcon("res/image/" + name + power + ".jpg");
+        icon = new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
+        this.setIcon(icon);
+
+    }
 }
+
+
+
+

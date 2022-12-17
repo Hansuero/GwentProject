@@ -134,6 +134,11 @@ public class PlayController
 
     public void turn(TradingCard card)
     {
+        if (card.getName().equals("Peasant"))
+        {
+            card.copyEnemyHighestPower(gameModel);
+        }
+
         playCard(card);
         cpuPlay(gameModel.cpuPlay());
         int power1 = gameModel.calculatePower(currentWeather,
