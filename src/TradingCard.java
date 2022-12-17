@@ -1,11 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class TradingCard extends JLabel
 {
     // Members
     public enum CardType
     {MELEE, RANGED, MAGIC, DEBUG}
+
     private boolean hasAbility;
     ;
     private int power;
@@ -153,8 +155,61 @@ public class TradingCard extends JLabel
         this.setIcon(icon);
 
     }
+
+    /**
+     * ID:[0]农民能力：复制对方已出卡牌中最高的点数(AI)
+     */
+    public void copyPlayerHighestPower(PlayModel gameModel)
+    {
+        int highestPower = 2;
+        for (TradingCard card : gameModel.p1MagicBoard)
+        {
+            if (card.getPower() > highestPower)
+            {
+                highestPower = card.getPower();
+            }
+        }
+        for (TradingCard card : gameModel.p1MeleeBoard)
+        {
+            if (card.getPower() > highestPower)
+            {
+                highestPower = card.getPower();
+            }
+        }
+        for (TradingCard card : gameModel.p1RangedBoard)
+        {
+            if (card.getPower() > highestPower)
+            {
+                highestPower = card.getPower();
+            }
+        }
+        this.power = highestPower;
+        ImageIcon icon = new ImageIcon("res/image/" + name + power + ".jpg");
+        icon = new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
+        this.setIcon(icon);
+
+    }
+
+    /**
+     * ID:[5]僵尸能力：70%概率随机杀死对面一张牌，30%概率随机杀死对面两张牌
+     */
+    public void killEnemyRangedCard(PlayModel gameModel, PlayView gameWindow)
+    {
+        gameModel.p2RangedBoard.clear();
+        gameWindow.p2Ranged.removeAll();
+        gameWindow.p2Ranged.repaint();
+    }
+
+    /**
+     * ID:[5]僵尸能力：70%概率随机杀死对面一张牌，30%概率随机杀死对面两张牌
+     */
+    public void killPlayerRangedCard(PlayModel gameModel, PlayView gameWindow)
+    {
+        gameModel.p1RangedBoard.clear();
+        gameWindow.p1Ranged.removeAll();
+        gameWindow.p2Ranged.repaint();
+    }
+
 }
-
-
 
 

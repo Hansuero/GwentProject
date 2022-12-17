@@ -229,9 +229,7 @@ public class PlayModel
      */
     public TradingCard cpuPlay()
     {
-
         TradingCard tempCard = new TradingCard((TradingCard) p2Hand[cpuTracker]);
-
         p2Hand[cpuTracker] = null;
         cpuTracker++;
         return tempCard;

@@ -138,8 +138,12 @@ public class PlayController
         {
             card.copyEnemyHighestPower(gameModel);
         }
-
+        else if (card.getName().equals("Diseased Zombie"))
+        {
+            card.killEnemyRangedCard(gameModel, gameWindow);
+        }
         playCard(card);
+
         cpuPlay(gameModel.cpuPlay());
         int power1 = gameModel.calculatePower(currentWeather,
                 gameModel.p1MeleeBoard, gameModel.p1RangedBoard, gameModel.p1MagicBoard);
@@ -270,6 +274,15 @@ public class PlayController
 
     public void cpuPlay(TradingCard card)
     {
+
+        if (card.getName().equals("Peasant"))
+        {
+            card.copyPlayerHighestPower(gameModel);
+        }
+        else if (card.getName().equals("Diseased Zombie"))
+        {
+            card.killPlayerRangedCard(gameModel, gameWindow);
+        }
         switch (card.getType())
         {
             case DEBUG:
