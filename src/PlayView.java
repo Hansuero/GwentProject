@@ -183,7 +183,6 @@ public class PlayView extends JFrame
         }
 
         //Draw the background again,继承自Jpanle,是Swing控件需要继承实现的方法,而不是AWT中的Paint()
-        //绘图类,详情可见博主的Java 下 java-Graphics
         public void paintComponent(Graphics g)
         {
             super.paintComponents(g);
@@ -328,8 +327,8 @@ public class PlayView extends JFrame
     public void winScreen()
     {
         p1Hand.removeAll();
-        JLabel win = new JLabel("You Won!", JLabel.CENTER);
-        win.setFont(new Font("Serif", Font.BOLD, 50));
+        JLabel win = new JLabel("You Won", JLabel.CENTER);
+        win.setFont(new Font("Serif", Font.BOLD, 150));
         win.setBackground(Color.GREEN);
         p1Hand.add(win);
     }
@@ -341,8 +340,8 @@ public class PlayView extends JFrame
     public void loseScreen()
     {
         p1Hand.removeAll();
-        JLabel lose = new JLabel("You Lost :(", JLabel.CENTER);
-        lose.setFont(new Font("Serif", Font.BOLD, 50));
+        JLabel lose = new JLabel("You Lost", JLabel.CENTER);
+        lose.setFont(new Font("Serif", Font.BOLD, 150));
         lose.setBackground(Color.RED);
         p1Hand.add(lose);
     }

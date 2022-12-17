@@ -45,7 +45,7 @@ public class TCDeck
     /**
      * 随机生成一张普通牌
      */
-    public TradingCard createRandomTradingCard()
+    public static TradingCard createRandomTradingCard()
     {
         int randID = (int) (Math.random() * CardStats.TradingCardNum);
         TradingCardStats stats = CardStats.getStatsByID(randID);
