@@ -191,23 +191,63 @@ public class TradingCard extends JLabel
     }
 
     /**
-     * ID:[5]僵尸能力：70%概率随机杀死对面一张牌，30%概率随机杀死对面两张牌
+     * ID:[5]僵尸能力：
      */
     public void killEnemyRangedCard(PlayModel gameModel, PlayView gameWindow)
     {
-        gameModel.p2RangedBoard.clear();
+        for (TradingCard card : gameModel.p2RangedBoard)
+        {
+            remove(card);
+        }
         gameWindow.p2Ranged.removeAll();
         gameWindow.p2Ranged.repaint();
     }
 
     /**
-     * ID:[5]僵尸能力：70%概率随机杀死对面一张牌，30%概率随机杀死对面两张牌
+     * ID:[5]僵尸能力：杀死对方ranged行所有的牌(AI)
      */
     public void killPlayerRangedCard(PlayModel gameModel, PlayView gameWindow)
     {
-        gameModel.p1RangedBoard.clear();
+        for (TradingCard card : gameModel.p1RangedBoard)
+        {
+            remove(card);
+        }
         gameWindow.p1Ranged.removeAll();
         gameWindow.p2Ranged.repaint();
+    }
+
+    /**
+     * ID:[10]魔法学徒能力：己方每有一个magic，自身点数加倍
+     */
+    public void doublePowerWhenHaveAMagic(PlayModel gameModel)
+    {
+        int magicCount = 0;
+        for (TradingCard card : gameModel.p1MagicBoard)
+        {
+            magicCount++;
+        }
+        int doubledPower = (int)Math.pow(2, magicCount + 1);
+        this.power = doubledPower;
+        ImageIcon icon = new ImageIcon("res/image/" + name + power + ".jpg");
+        icon = new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
+        this.setIcon(icon);
+    }
+
+    /**
+     * ID:[10]魔法学徒能力：己方每有一个magic，自身点数加倍
+     */
+    public void doublePowerWhenHaveAMagicForAI(PlayModel gameModel)
+    {
+        int magicCount = 0;
+        for (TradingCard card : gameModel.p2MagicBoard)
+        {
+            magicCount++;
+        }
+        int doubledPower = (int)Math.pow(2, magicCount + 1);
+        this.power = doubledPower;
+        ImageIcon icon = new ImageIcon("res/image/" + name + power + ".jpg");
+        icon = new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
+        this.setIcon(icon);
     }
 
 }

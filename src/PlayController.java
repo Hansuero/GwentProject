@@ -142,6 +142,10 @@ public class PlayController
         {
             card.killEnemyRangedCard(gameModel, gameWindow);
         }
+        else if (card.getName().equals("Magician Apprentice"))
+        {
+            card.doublePowerWhenHaveAMagic(gameModel);
+        }
         playCard(card);
 
         cpuPlay(gameModel.cpuPlay());
@@ -282,6 +286,10 @@ public class PlayController
         else if (card.getName().equals("Diseased Zombie"))
         {
             card.killPlayerRangedCard(gameModel, gameWindow);
+        }
+        else if (card.getName().equals("Magician Apprentice"))
+        {
+            card.doublePowerWhenHaveAMagicForAI(gameModel);
         }
         switch (card.getType())
         {
