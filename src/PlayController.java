@@ -96,13 +96,10 @@ public class PlayController
 
     public void game()
     {
-
         if (gameModel.getP1Score() > gameModel.getP2Score())
             gameWindow.winScreen();
         else
             gameWindow.loseScreen();
-
-
     }
 
     public void round()
@@ -124,9 +121,6 @@ public class PlayController
         }
         else
         {
-
-
-
             gameWindow.setScore(gameModel.getP1Score(), gameModel.getP2Score());
             game();
         }

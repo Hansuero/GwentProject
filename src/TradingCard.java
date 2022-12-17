@@ -195,10 +195,7 @@ public class TradingCard extends JLabel
      */
     public void killEnemyRangedCard(PlayModel gameModel, PlayView gameWindow)
     {
-        for (TradingCard card : gameModel.p2RangedBoard)
-        {
-            remove(card);
-        }
+        gameModel.p2RangedBoard.clear();
         gameWindow.p2Ranged.removeAll();
         gameWindow.p2Ranged.repaint();
     }
@@ -208,12 +205,9 @@ public class TradingCard extends JLabel
      */
     public void killPlayerRangedCard(PlayModel gameModel, PlayView gameWindow)
     {
-        for (TradingCard card : gameModel.p1RangedBoard)
-        {
-            remove(card);
-        }
+        gameModel.p1RangedBoard.clear();
         gameWindow.p1Ranged.removeAll();
-        gameWindow.p2Ranged.repaint();
+        gameWindow.p1Ranged.repaint();
     }
 
     /**
