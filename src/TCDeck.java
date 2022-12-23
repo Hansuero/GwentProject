@@ -9,7 +9,7 @@ public class TCDeck
 {
     // Members
     private ArrayList<TradingCard> deck = new ArrayList<>();
-    private static ArrayList<TradingCard> cardList = new ArrayList<>();
+    private static ArrayList<TradingCard> cardList;
     private static ArrayList<WeatherCard> WeathercardList = new ArrayList<>();
     private static final int DECK_SIZE = 60;
     private boolean initialized = false;
@@ -22,8 +22,9 @@ public class TCDeck
      */
     public TCDeck()
     {
-        if (!initialized)
-            createCards();
+        cardList = new ArrayList<>();
+
+        createCards();
         defaultDeck();
     }
 
@@ -34,7 +35,8 @@ public class TCDeck
      */
     public TCDeck(boolean random)
     {
-        if (!initialized)
+        cardList = new ArrayList<>();
+        //if (!initialized)
             createCards();
         if (random)
             randomDeck();
@@ -58,19 +60,11 @@ public class TCDeck
      */
     public void createCards()
     {
-
-        //try
-        //{
-            //File file = new File("res/CardList.txt");
-            //Scanner scanner = new Scanner(file);
             for (int i = 0; i < DECK_SIZE; i++)
             {
-                //String tempType = scanner.nextLine();
-                //int tempPower = Integer.parseInt(scanner.nextLine());
-                //String tempName = scanner.nextLine();
                 cardList.add(createRandomTradingCard());
             }
-            //scanner.close();
+
             for (int i = 0; i < 2; i++)
             {
                 WeathercardList.add(new WeatherCard("CLEAR"));
@@ -82,12 +76,6 @@ public class TCDeck
                 WeathercardList.add(new WeatherCard("WIND"));
             }
             initialized = true;
-        //} catch (FileNotFoundException e)
-        //{
-        //    System.out.println("File not found!" +
-        //            "Should have a 'CardList.txt' file in this directory");
-        //    e.printStackTrace();
-        //}
     }
 
     /**

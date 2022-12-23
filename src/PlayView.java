@@ -35,6 +35,7 @@ public class PlayView extends JFrame
         background.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
     }
 
+
     public PlayView()
     {
         super(PROGRAM_NAME);

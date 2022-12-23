@@ -1,71 +1,84 @@
+/**
+ * PlayModel.java
+ * 负责游戏的数据保存和处理，计算分数
+ */
 import javax.swing.*;
 import java.nio.channels.ClosedSelectorException;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Mike Limpus
- * CST 338 Final Project
- * PlayModel.java
- * Handle all of the game calculations and data
- */
-
 public class PlayModel
 {
     // Members
-    public TCDeck p1Deck = new TCDeck();
-    public TCDeck p2Deck = new TCDeck(true);
-    public static int p1Score = 0, p2Score = 0;
-    public static final int HAND_SIZE = 6, BOARD_SIZE = 5;
+    public TCDeck p1Deck;
+    public TCDeck p2Deck;
+    public static int p1Score, p2Score;
+    public static final int HAND_SIZE = 6;
+    public static final int BOARD_SIZE = 5;
     public int p1MeleePower, p1RangedPower, p1MagicPower, p1TotalPower,
             p2MeleePower, p2RangedPower, p2MagicPower, p2TotalPower;
     public JLabel[] p1Hand = new JLabel[100];
     public JLabel[] p2Hand = new JLabel[100];
-    public ArrayList<TradingCard> p1MeleeBoard = new ArrayList<>();
-    public ArrayList<TradingCard> p1RangedBoard = new ArrayList<>();
-    public ArrayList<TradingCard> p1MagicBoard = new ArrayList<>();
-    public ArrayList<TradingCard> p2MeleeBoard = new ArrayList<>();
-    public ArrayList<TradingCard> p2RangedBoard = new ArrayList<>();
-    public ArrayList<TradingCard> p2MagicBoard = new ArrayList<>();
+    public ArrayList<TradingCard> p1MeleeBoard;
+    public ArrayList<TradingCard> p1RangedBoard;
+    public ArrayList<TradingCard> p1MagicBoard;
+    public ArrayList<TradingCard> p2MeleeBoard;
+    public ArrayList<TradingCard> p2RangedBoard;
+    public ArrayList<TradingCard> p2MagicBoard;
 
-    private static boolean initialized = false;
+    private static boolean initialized;
     private static int cpuTracker;
 
     /**
-     * Weather conditions will affect different card types:
-     * Clear - no change
-     * Heatwave - melee nerf
-     * Wind - ranged nerf
-     * Fog - magic nerf
-     * Eclipse - Magic buff, slight melee nerf
-     * Nice Breeze - Melee buff, slight ranged nerf
-     * Rain - Ranged buff, slight magic nerf
+     * 天气设定:不同的天气会对场上不同位置卡牌点数产生影响
+     * Clear - 无影响
+     * Heatwave -削弱 Melee
+     * Wind - 削弱 Ranged
+     * Fog - 削弱 Magic
+     * Eclipse - 增强 Magic, 轻度削弱 Melee
+     * Nice Breeze - 增强 Melee, 轻度削弱 Ranged
+     * Rain - 增强 Ranged, 轻度削弱 Magic
      */
     public enum Weather
     {
         CLEAR,
         HEATWAVE,
-        WIND, FOG,
+        WIND,
+        FOG,
         ECLIPSE,
         NICEBREEZE,
         RAIN
     };
 
-    // Methods
+    /**
+     * 刷新分数，补充牌库
+     */
     public PlayModel()
     {
+        p1Score = p2Score = 0;
+
+        p1Deck = new TCDeck();
+        p2Deck = new TCDeck(true);
+        p1Deck.defaultDeck();
+        p2Deck.defaultDeck();
+
+        initialized = false;
+
+        p1MagicBoard = new ArrayList<>();
+        p1MeleeBoard = new ArrayList<>();
+        p1RangedBoard = new ArrayList<>();
+        p2MeleeBoard = new ArrayList<>();
+        p2MagicBoard = new ArrayList<>();
+        p2RangedBoard = new ArrayList<>();
     }
 
     /**
-     * The main game calculation, determines the entire power of any players'
-     * side of the board based on the current weather condition, using the 3
-     * rows calculated with calculateRowPower. Through the use of int
-     * typecasting and intentionally vague user messages, the true calcaulations
-     * will be intentionally somewhat obfuscated from the player. Only multiply/
-     * divide are used to make power buffs and nerfs relative to the total row
-     * power.
+     * 游戏的主要计算, 计算某方出牌的power总和
+     * 具体计算方式为，首先分别计算出三行的power和
+     * 接着根据场上的天气，计算削弱和增强，更新受影响行的power
+     * 将三行的power相加，得到该方的power总和并返回
      *
-     * @return total power of a turn
+     * @return 出牌后己方场上的总power
      */
     public int calculatePower(Weather condition, ArrayList<TradingCard> meleeRow,
                               ArrayList<TradingCard> rangedRow, ArrayList<TradingCard> magicRow)
@@ -76,34 +89,42 @@ public class PlayModel
         int magicPower = calculateRowPower(magicRow);
         switch (condition)
         {
-            case CLEAR:         // No change
+            case CLEAR:
+                // No Change
                 totalPower = meleePower + rangedPower + magicPower;
                 break;
-            case ECLIPSE:       // Magic * 2, Melee / 1.5
+            case ECLIPSE:
+                // Magic * 2, Melee / 1.5
                 totalPower =
                         (int) (meleePower / 1.5) + rangedPower + (magicPower * 2);
                 break;
-            case FOG:           // Magic / 2
+            case FOG:
+                // Magic / 2
                 totalPower =
                         meleePower + rangedPower + (int) (magicPower / 2);
                 break;
-            case HEATWAVE:      // Melee / 2
+            case HEATWAVE:
+                // Melee / 2
                 totalPower =
                         (int) (meleePower / 2) + rangedPower + magicPower;
                 break;
-            case NICEBREEZE:    // Melee * 2, Ranged / 1.5
+            case NICEBREEZE:
+                // Melee * 2, Ranged / 1.5
                 totalPower =
                         (meleePower * 2) + (int) (rangedPower / 1.5) + magicPower;
                 break;
-            case RAIN:          // Ranged * 2, Magic / 1.5
+            case RAIN:
+                // Ranged * 2, Magic / 1.5
                 totalPower =
                         meleePower + (rangedPower * 2) + (int) (magicPower / 1.5);
                 break;
-            case WIND:          // Ranged / 2
+            case WIND:
+                // Ranged / 2
                 totalPower =
                         meleePower + (int) (rangedPower / 2) + magicPower;
                 break;
             default:
+                // No Change
                 condition = Weather.CLEAR;
                 break;
         }
@@ -111,10 +132,9 @@ public class PlayModel
     }
 
     /**
-     * Gets the power from each card in an arrayList and calculates the
-     * cumilative power of all the TradingCards in the row
-     *
-     * @return power of that row of cards
+     * 计算某一行的power和并返回
+     * 方法：遍历该行每张牌并加到power中
+     * @return 该行的power和
      */
     public int calculateRowPower(ArrayList<TradingCard> row)
     {
@@ -127,7 +147,8 @@ public class PlayModel
     }
 
     /**
-     * Allocate memory for the arrays, shuffle the decks
+     * 为Hand申请空间
+     * shuffle牌库
      */
     public void initializeGame()
     {
@@ -141,17 +162,17 @@ public class PlayModel
     }
 
     /**
-     * Handles the cleanup needed to start a new round, and invokes
-     * intializeGame on it's first call
+     * 开始新回合的处理
+     * 第一次调用时初始化游戏
      */
     public void roundStart()
     {
-        // Initialize the board on the first round
+        // 第一回合先初始化游戏
         if (!initialized)
         {
             initializeGame();
         }
-        // 'Discard the board' by resetting the arrays
+        // 重设board，即清空数组
         else
         {
             p1MeleeBoard.clear();

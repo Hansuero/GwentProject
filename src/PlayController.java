@@ -1,39 +1,42 @@
 /**
- * Mike Limpus
- * CST 338 Final Project
  * PlayController.java
- * The final piece of the MVC puzzle. The controller uses instances of PlayModel
- * and PlayView to construct the game itself. It handles some game logic and
- * GUI layout, but only in instances where the Model and View directly need to
- * communicate. It is also responsible for all user input through mouse
- * listeners.
+ * 主要功能是控制游戏行为，包括出牌，回合，判断胜负等。
  */
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class PlayController
 {
     // Members
-    PlayView gameWindow = new PlayView();
-    PlayModel gameModel = new PlayModel();
+    PlayView gameWindow;
+    PlayModel gameModel;
     public TradingCard[] hand1, hand2;
     public PlayModel.Weather currentWeather;
     public static int turnCount = 0, roundCount = 0;
     public static final int MAX_TURNS = (PlayModel.HAND_SIZE - 1);
     public static final int MAX_ROUNDS = 5;
 
-    // Methods
+    /**
+     * 初始化游戏，产生新的游戏窗口和运算模块，初始化回合，添加鼠标事件
+     */
     public PlayController()
     {
+        gameWindow = new PlayView();
+        gameModel = new PlayModel();
         gameModel.roundStart();
         drawHand();
         // Create the mouse listeners
         addMouseListeners();
     }
 
+    /**
+     * 添加鼠标事件：点击手牌即为出牌，讲手中手牌移除，并放置在出牌区域
+     */
     public void addMouseListeners()
     {
         for (int i = 0; i < PlayModel.HAND_SIZE; ++i)
@@ -81,6 +84,9 @@ public class PlayController
         }
     }
 
+    /**
+     *将手牌数据提交至窗口hand Panel
+     */
     public void drawHand()
     {
         for (int i = 0; i < PlayModel.HAND_SIZE; ++i)
@@ -89,19 +95,52 @@ public class PlayController
         }
     }
 
+    /**
+     * 移除手中全部手牌，当出牌数量达到回合最大值时调用
+     */
     public void discardHand()
     {
         gameWindow.p1Hand.removeAll();
     }
 
+    /**
+     * 游戏结算，根据分数决定胜者
+     * replay按钮，点击则重新开始一局游戏
+     */
     public void game()
     {
         if (gameModel.getP1Score() > gameModel.getP2Score())
             gameWindow.winScreen();
         else
             gameWindow.loseScreen();
+        JPanel gameOverPanel = new JPanel();
+        JLabel winOrLose;
+        if (gameModel.getP1Score() > gameModel.getP2Score())
+            winOrLose = new JLabel("YOU WIN");
+        else
+            winOrLose = new JLabel("YOU LOSE");
+        //winOrLose.setFont(new Font("Arial", Font.BOLD, 75));
+        JButton playAgainButton = new JButton("Replay");
+        playAgainButton.setSize(200, 80);
+        playAgainButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                replay();
+            }
+        });
+        gameOverPanel.setLayout(null);
+        //gameOverPanel.add(winOrLose);
+        gameOverPanel.add(playAgainButton);
+        playAgainButton.setLocation(580, 300);
+        gameWindow.setContentPane(gameOverPanel);
+        gameOverPanel.repaint();
     }
 
+    /**
+     * 在每个回合开始时调用，初始化回合数据
+     */
     public void round()
     {
         if (roundCount < MAX_ROUNDS)
@@ -126,6 +165,10 @@ public class PlayController
         }
     }
 
+    /**
+     * 出牌（普通卡牌），同时释放特殊能力，
+     * @param card 要出的卡牌（被点击）
+     */
     public void turn(TradingCard card)
     {
         if (card.getName().equals("Peasant"))
@@ -140,9 +183,11 @@ public class PlayController
         {
             card.doublePowerWhenHaveAMagic(gameModel);
         }
+        //放置卡牌置出牌区
         playCard(card);
-
+        //电脑出牌（放置卡牌至出牌区
         cpuPlay(gameModel.cpuPlay());
+        //根据场上的卡牌计算各自的power并更新
         int power1 = gameModel.calculatePower(currentWeather,
                 gameModel.p1MeleeBoard, gameModel.p1RangedBoard, gameModel.p1MagicBoard);
         int power2 = gameModel.calculatePower(currentWeather,
@@ -151,6 +196,7 @@ public class PlayController
         gameModel.p2TotalPower = 0;
         gameModel.p1TotalPower = 0;
         turnCount++;
+        //如果达到最大出牌数就结束当前回合，开始新回合
         if (turnCount == MAX_TURNS)
         {
             if (power1 > power2)
@@ -168,15 +214,21 @@ public class PlayController
         }
     }
 
+    /**
+     * 针对天气牌的出牌
+     * @param card 要出的天气牌
+     */
     public void turn_w(WeatherCard card)
     {
         playCard_w(card);
         cpuPlay(gameModel.cpuPlay());
+
         int power1 = gameModel.calculatePower(currentWeather,
                 gameModel.p1MeleeBoard, gameModel.p1RangedBoard, gameModel.p1MagicBoard);
         int power2 = gameModel.calculatePower(currentWeather,
                 gameModel.p2MeleeBoard, gameModel.p2RangedBoard, gameModel.p2MagicBoard);
         gameWindow.setPower(power1, power2);
+
         gameModel.p2TotalPower = 0;
         gameModel.p1TotalPower = 0;
         turnCount++;
@@ -196,16 +248,28 @@ public class PlayController
         }
     }
 
+    /**
+     * 点击时调用，同时调用turn函数
+     * @param card 点击的卡牌
+     */
     public void clicked(TradingCard card)
     {
         turn(card);
     }
 
+    /**
+     * 针对天气牌的点击
+     * @param card 点击的天气牌
+     */
     public void clicked_w(WeatherCard card)
     {
         turn_w(card);
     }
 
+    /**
+     * 天气牌发挥作用，改变场上的天气
+     * @param card 即将发挥作用的天气牌
+     */
     public void playCard_w(WeatherCard card)
     {
         switch (card.getWeatherType())
@@ -234,7 +298,9 @@ public class PlayController
             default:
                 break;
         }
+        //使改动生效
         gameWindow.setWeather(currentWeather);
+        //使该天气牌从手牌中移除
         for (int i = 0; i < PlayModel.HAND_SIZE; ++i)
         {
             if (card == gameModel.p1Hand[i])
@@ -242,6 +308,10 @@ public class PlayController
         }
     }
 
+    /**
+     * 打出普通牌（将卡牌放进出牌区）
+     * @param card 将要放置的卡牌
+     */
     public void playCard(TradingCard card)
     {
         switch (card.getType())
@@ -270,21 +340,29 @@ public class PlayController
         }
     }
 
+    /**
+     * 人机出牌（也会施展对应特殊能力）
+     * @param card 人机将要出的牌
+     */
     public void cpuPlay(TradingCard card)
     {
 
+        //农民特殊能力
         if (card.getName().equals("Peasant"))
         {
             card.copyPlayerHighestPower(gameModel);
         }
+        //僵尸特殊能力
         else if (card.getName().equals("Diseased Zombie"))
         {
             card.killPlayerRangedCard(gameModel, gameWindow);
         }
+        //魔法学徒特殊能力
         else if (card.getName().equals("Magician Apprentice"))
         {
             card.doublePowerWhenHaveAMagicForAI(gameModel);
         }
+        //放置卡牌
         switch (card.getType())
         {
             case DEBUG:
@@ -304,11 +382,28 @@ public class PlayController
             default:
                 break;
         }
-
+        //清除对应手中卡牌
         for (int i = 0; i < PlayModel.HAND_SIZE; ++i)
         {
             if (card == gameModel.p2Hand[i])
                 gameModel.p2Hand[i] = null;
         }
     }
+
+    /**
+     * 再来一局，重置出牌数和回合数，关闭旧窗口，创建新窗口和其他组件
+     */
+    public void replay()
+    {
+        turnCount = roundCount = 0;
+        gameWindow.dispose();
+        gameWindow = new PlayView();
+        gameModel = new PlayModel();
+        gameModel.roundStart();
+        drawHand();
+        // Create the mouse listeners
+        addMouseListeners();
+        round();
+    }
 }
+

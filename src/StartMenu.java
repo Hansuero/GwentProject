@@ -3,8 +3,12 @@ import java.awt.event.ActionEvent;
 
 public class StartMenu extends JFrame
 {
+    //游戏名称（窗口名称）
     private static final String PROGRAM_NAME = "Card Combat";
 
+    /**
+     * 设定开始界面的背景图片
+     */
     public void setBg()
     {
         ((JPanel) this.getContentPane()).setOpaque(false);

@@ -1,9 +1,6 @@
 /**
- * Mike Limpus
- * CST 338 Final Project
  * TCGDriver.java
  * Main program entry point, sets the look and feel of the application
- * to be "Native" to the operating system
  */
 
 import javax.swing.*;
@@ -69,7 +66,6 @@ public class TCGDriver
                 );
                 r.setSize(1000, 500);
                 r.setResizable(false);
-                //r.setDefaultCloseOperation(EXIT_ON_CLOSE);
                 ImageIcon icon = new ImageIcon("res/image/Unknown.jpg");
                 r.setIconImage(icon.getImage());
                 text.setBounds(0, 0, r.getWidth(), r.getHeight());
