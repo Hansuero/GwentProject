@@ -85,7 +85,7 @@ public class PlayController
     }
 
     /**
-     *将手牌数据提交至窗口hand Panel
+     * 将手牌数据提交至窗口hand Panel
      */
     public void drawHand()
     {
@@ -114,24 +114,32 @@ public class PlayController
         else
             gameWindow.loseScreen();
         JPanel gameOverPanel = new JPanel();
+        gameOverPanel.setBackground(Color.CYAN);
         JLabel winOrLose;
         if (gameModel.getP1Score() > gameModel.getP2Score())
             winOrLose = new JLabel("YOU WIN");
         else
             winOrLose = new JLabel("YOU LOSE");
-        //winOrLose.setFont(new Font("Arial", Font.BOLD, 75));
+        winOrLose.setFont(new Font("Arial", Font.BOLD, 75));
+
         JButton playAgainButton = new JButton("Replay");
+        playAgainButton.setFont(new Font("Arial", Font.PLAIN, 20));
         playAgainButton.setSize(200, 80);
         playAgainButton.addActionListener(new ActionListener()
         {
             @Override
-            public void actionPerformed(ActionEvent e)
+        public void actionPerformed(ActionEvent e)
             {
                 replay();
             }
         });
+
         gameOverPanel.setLayout(null);
-        //gameOverPanel.add(winOrLose);
+        gameOverPanel.add(winOrLose);
+        winOrLose.setSize(500, 300);
+        winOrLose.setFont(new Font("Arial", Font.BOLD, 75));
+        winOrLose.setVisible(true);
+        winOrLose.setLocation(500, 0);
         gameOverPanel.add(playAgainButton);
         playAgainButton.setLocation(580, 300);
         gameWindow.setContentPane(gameOverPanel);
@@ -157,8 +165,7 @@ public class PlayController
             currentWeather = gameModel.weatherRoll(0);
             gameWindow.setWeather(currentWeather);
             gameWindow.setScore(gameModel.getP1Score(), gameModel.getP2Score());
-        }
-        else
+        } else
         {
             gameWindow.setScore(gameModel.getP1Score(), gameModel.getP2Score());
             game();
@@ -167,6 +174,7 @@ public class PlayController
 
     /**
      * 出牌（普通卡牌），同时释放特殊能力，
+     *
      * @param card 要出的卡牌（被点击）
      */
     public void turn(TradingCard card)
@@ -174,12 +182,10 @@ public class PlayController
         if (card.getName().equals("Peasant"))
         {
             card.copyEnemyHighestPower(gameModel);
-        }
-        else if (card.getName().equals("Diseased Zombie"))
+        } else if (card.getName().equals("Diseased Zombie"))
         {
             card.killEnemyRangedCard(gameModel, gameWindow);
-        }
-        else if (card.getName().equals("Magician Apprentice"))
+        } else if (card.getName().equals("Magician Apprentice"))
         {
             card.doublePowerWhenHaveAMagic(gameModel);
         }
@@ -202,8 +208,7 @@ public class PlayController
             if (power1 > power2)
             {
                 gameModel.p1Score++;
-            }
-            else if (power2 > power1)
+            } else if (power2 > power1)
             {
                 gameModel.p2Score++;
             }
@@ -216,6 +221,7 @@ public class PlayController
 
     /**
      * 针对天气牌的出牌
+     *
      * @param card 要出的天气牌
      */
     public void turn_w(WeatherCard card)
@@ -250,6 +256,7 @@ public class PlayController
 
     /**
      * 点击时调用，同时调用turn函数
+     *
      * @param card 点击的卡牌
      */
     public void clicked(TradingCard card)
@@ -259,6 +266,7 @@ public class PlayController
 
     /**
      * 针对天气牌的点击
+     *
      * @param card 点击的天气牌
      */
     public void clicked_w(WeatherCard card)
@@ -268,6 +276,7 @@ public class PlayController
 
     /**
      * 天气牌发挥作用，改变场上的天气
+     *
      * @param card 即将发挥作用的天气牌
      */
     public void playCard_w(WeatherCard card)
@@ -310,6 +319,7 @@ public class PlayController
 
     /**
      * 打出普通牌（将卡牌放进出牌区）
+     *
      * @param card 将要放置的卡牌
      */
     public void playCard(TradingCard card)
@@ -342,6 +352,7 @@ public class PlayController
 
     /**
      * 人机出牌（也会施展对应特殊能力）
+     *
      * @param card 人机将要出的牌
      */
     public void cpuPlay(TradingCard card)

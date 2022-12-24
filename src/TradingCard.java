@@ -129,7 +129,7 @@ public class TradingCard extends JLabel {
 
     /**
      * ID:[0]农民能力：复制对方已出卡牌中最高的点数
-     * 
+     *
      * @param gameModel
      */
     public void copyEnemyHighestPower(PlayModel gameModel) {
@@ -244,5 +244,4 @@ public class TradingCard extends JLabel {
     }
 
 }
-
 

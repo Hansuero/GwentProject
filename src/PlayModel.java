@@ -2,6 +2,7 @@
  * PlayModel.java
  * 负责游戏的数据保存和处理，计算分数
  */
+
 import javax.swing.*;
 import java.nio.channels.ClosedSelectorException;
 import java.util.ArrayList;
@@ -48,7 +49,9 @@ public class PlayModel
         ECLIPSE,
         NICEBREEZE,
         RAIN
-    };
+    }
+
+    ;
 
     /**
      * 刷新分数，补充牌库
@@ -134,6 +137,7 @@ public class PlayModel
     /**
      * 计算某一行的power和并返回
      * 方法：遍历该行每张牌并加到power中
+     *
      * @return 该行的power和
      */
     public int calculateRowPower(ArrayList<TradingCard> row)
@@ -183,7 +187,7 @@ public class PlayModel
             p2MagicBoard.clear();
 
         }
-        // Draw cards
+        // 初始化手牌
         for (int i = 0; i < HAND_SIZE; ++i)
         {
             if (i == 5)
@@ -198,33 +202,27 @@ public class PlayModel
                     {
                         WeatherCard mid = new WeatherCard("CLEAR");
                         p1Hand[i] = mid;
-                    }
-                    else if (tt == 1)
+                    } else if (tt == 1)
                     {
                         WeatherCard mid = new WeatherCard("ECLIPSE");
                         p1Hand[i] = mid;
-                    }
-                    else if (tt == 2)
+                    } else if (tt == 2)
                     {
                         WeatherCard mid = new WeatherCard("FOG");
                         p1Hand[i] = mid;
-                    }
-                    else if (tt == 3)
+                    } else if (tt == 3)
                     {
                         WeatherCard mid = new WeatherCard("HEATWAVE");
                         p1Hand[i] = mid;
-                    }
-                    else if (tt == 4)
+                    } else if (tt == 4)
                     {
                         WeatherCard mid = new WeatherCard("NICEBREEZE");
                         p1Hand[i] = mid;
-                    }
-                    else if (tt == 5)
+                    } else if (tt == 5)
                     {
                         WeatherCard mid = new WeatherCard("RAIN");
                         p1Hand[i] = mid;
-                    }
-                    else if (tt == 6)
+                    } else if (tt == 6)
                     {
                         WeatherCard mid = new WeatherCard("WIND");
                         p1Hand[i] = mid;
@@ -241,10 +239,9 @@ public class PlayModel
     }
 
     /**
-     * The not-so-intelligent "AI" for the computer player. The computer will
-     * default to playing their top card. Because this game implementation is
-     * more luck based in the current implementation, this will ultimately be
-     * trivial.
+     * AI的出牌
+     * 不是很聪明的AI，它会出手中的第一张牌。
+     * 考虑到这可能会有些无趣，将来会改善这个AI
      *
      * @return the "leftmost" card in p2Hand
      */
@@ -256,6 +253,12 @@ public class PlayModel
         return tempCard;
     }
 
+    /**
+     * 根据传进来的参数返回对应id的天气
+     *
+     * @param random 要返回的天气类型所代表的id
+     * @return 一个根据参数返回的天气
+     */
     public Weather weatherRoll(int random)
     {
         switch (random)
@@ -280,33 +283,60 @@ public class PlayModel
     }
 
     /**
-     * Accessors for neccessary members
+     * 返回p1手牌的JLabel
+     *
+     * @return p1手牌的JLabel数组
      */
     public JLabel[] getP1Hand()
     {
         return p1Hand;
     }
 
+    /**
+     * 返回p2手牌的Card数组
+     *
+     * @return p2手牌的Card数组
+     */
     public TradingCard[] getP2Hand()
     {
         return (TradingCard[]) p2Hand;
     }
 
+    /**
+     * 返回p1的Power
+     *
+     * @return p1的Power
+     */
     public int getP1Power()
     {
         return p1TotalPower;
     }
 
+    /**
+     * 返回p2的Power
+     *
+     * @return p2的Power
+     */
     public int getP2Power()
     {
         return p2TotalPower;
     }
 
+    /**
+     * 返回p1的分数
+     *
+     * @return p1的分数
+     */
     public int getP1Score()
     {
         return p1Score;
     }
 
+    /**
+     * 返回p2的分数
+     *
+     * @return p2的分数
+     */
     public int getP2Score()
     {
         return p2Score;

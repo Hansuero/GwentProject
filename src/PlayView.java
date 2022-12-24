@@ -1,6 +1,4 @@
 /**
- * Mike Limpus
- * CST 338 Final Project
  * PlayView.java
  * Creates the swing window and elements of the game board, as well as provide
  * methods that directly modify the window.
@@ -13,7 +11,7 @@ public class PlayView extends JFrame
 {
     // Members
     public JPanel leftPanel, rightPanel;
-    private static final String PROGRAM_NAME = "Card Combat";
+    private static final String PROGRAM_NAME = "Gwent Project";
     // Right side panels
     public JPanel p1Melee, p1Ranged, p1Magic,
             p2Melee, p2Ranged, p2Magic, weatherPanel;
@@ -118,8 +116,6 @@ public class PlayView extends JFrame
         p2Magic.setLayout(new FlowLayout());
         p2Magic.setPreferredSize(new Dimension(500, 70));
         p2Magic.setBorder(BorderFactory.createTitledBorder("Magic"));
-
-
 
 
         p1Hand.setLayout(new FlowLayout(PlayModel.HAND_SIZE));

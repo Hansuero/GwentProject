@@ -14,7 +14,7 @@ public class CardStats
     {
         for (TradingCardStats stats : tradingCardStatsVector)
         {
-            if(stats.cardID == targetID)
+            if (stats.cardID == targetID)
             {
                 return stats;
             }
@@ -69,8 +69,7 @@ public class CardStats
 
             }
 
-        }
-        catch(NoSuchElementException e)
+        } catch (NoSuchElementException e)
         {
             //nothing
         }
@@ -78,6 +77,7 @@ public class CardStats
     }
 
 }
+
 class TradingCardStats
 {
     int cardID;
