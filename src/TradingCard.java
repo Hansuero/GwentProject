@@ -1,13 +1,25 @@
+/**
+ * TradingCard.java
+ * 普通卡牌的相关属性
+ * 和天气牌独立
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-public class TradingCard extends JLabel {
+public class TradingCard extends JLabel
+{
     // Members
-    public enum CardType {MELEE, RANGED, MAGIC, DEBUG}
+    public enum CardType
+    {
+        MELEE,
+        RANGED,
+        MAGIC,
+        DEBUG
+    }
 
     private boolean hasAbility;
-    ;
     private int power;
     private String name;
     private CardType type;
@@ -18,7 +30,8 @@ public class TradingCard extends JLabel {
     /**
      * 这是Default constructor， 创建一张空白的无用卡
      */
-    TradingCard() {
+    TradingCard()
+    {
         super();
         this.isWeather = false;
         this.setSize(50, 60);
@@ -37,7 +50,8 @@ public class TradingCard extends JLabel {
      * @param name  名字
      * @param type  卡牌类型
      */
-    TradingCard(int power, String name, CardType type) {
+    TradingCard(int power, String name, CardType type)
+    {
         super();
         this.isWeather = false;
         this.setSize(108, 200);
@@ -56,7 +70,8 @@ public class TradingCard extends JLabel {
      * @param name  名字
      * @param type  卡牌类型
      */
-    TradingCard(int power, String name, String type) {
+    TradingCard(int power, String name, String type)
+    {
         super();
         this.isWeather = false;
         this.setSize(108, 200);
@@ -65,13 +80,20 @@ public class TradingCard extends JLabel {
         this.setIcon(icon);
         this.power = power;
         this.name = name;
-        if (type.contains("MELEE")) {
+        if (type.contains("MELEE"))
+        {
             this.type = CardType.MELEE;
-        } else if (type.contains("RANGED")) {
+        }
+        else if (type.contains("RANGED"))
+        {
             this.type = CardType.RANGED;
-        } else if (type.contains("MAGIC")) {
+        }
+        else if (type.contains("MAGIC"))
+        {
             this.type = CardType.MAGIC;
-        } else {
+        }
+        else
+        {
             this.type = CardType.DEBUG;
         }
     }
@@ -81,7 +103,8 @@ public class TradingCard extends JLabel {
      *
      * @param card 要复制的牌
      */
-    TradingCard(TradingCard card) {
+    TradingCard(TradingCard card)
+    {
         super();
         this.isWeather = false;
         this.setSize(56, 85);
@@ -98,7 +121,8 @@ public class TradingCard extends JLabel {
      *
      * @return 卡牌点数
      */
-    public int getPower() {
+    public int getPower()
+    {
         return power;
     }
 
@@ -107,7 +131,8 @@ public class TradingCard extends JLabel {
      *
      * @return 卡牌名字
      */
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
@@ -116,14 +141,16 @@ public class TradingCard extends JLabel {
      *
      * @return 卡牌类型
      */
-    public CardType getType() {
+    public CardType getType()
+    {
         return type;
     }
 
     /**
      * 打印卡牌类型
      */
-    public void print() {
+    public void print()
+    {
         System.out.println(name + " " + type + " " + power);
     }
 
@@ -132,20 +159,27 @@ public class TradingCard extends JLabel {
      *
      * @param gameModel
      */
-    public void copyEnemyHighestPower(PlayModel gameModel) {
+    public void copyEnemyHighestPower(PlayModel gameModel)
+    {
         int highestPower = 2;
-        for (TradingCard card : gameModel.p2MagicBoard) {
-            if (card.getPower() > highestPower) {
+        for (TradingCard card : gameModel.p2MagicBoard)
+        {
+            if (card.getPower() > highestPower)
+            {
                 highestPower = card.getPower();
             }
         }
-        for (TradingCard card : gameModel.p2MeleeBoard) {
-            if (card.getPower() > highestPower) {
+        for (TradingCard card : gameModel.p2MeleeBoard)
+        {
+            if (card.getPower() > highestPower)
+            {
                 highestPower = card.getPower();
             }
         }
-        for (TradingCard card : gameModel.p2RangedBoard) {
-            if (card.getPower() > highestPower) {
+        for (TradingCard card : gameModel.p2RangedBoard)
+        {
+            if (card.getPower() > highestPower)
+            {
                 highestPower = card.getPower();
             }
         }
@@ -161,20 +195,27 @@ public class TradingCard extends JLabel {
      *
      * @param gameModel
      */
-    public void copyPlayerHighestPower(PlayModel gameModel) {
+    public void copyPlayerHighestPower(PlayModel gameModel)
+    {
         int highestPower = 2;
-        for (TradingCard card : gameModel.p1MagicBoard) {
-            if (card.getPower() > highestPower) {
+        for (TradingCard card : gameModel.p1MagicBoard)
+        {
+            if (card.getPower() > highestPower)
+            {
                 highestPower = card.getPower();
             }
         }
-        for (TradingCard card : gameModel.p1MeleeBoard) {
-            if (card.getPower() > highestPower) {
+        for (TradingCard card : gameModel.p1MeleeBoard)
+        {
+            if (card.getPower() > highestPower)
+            {
                 highestPower = card.getPower();
             }
         }
-        for (TradingCard card : gameModel.p1RangedBoard) {
-            if (card.getPower() > highestPower) {
+        for (TradingCard card : gameModel.p1RangedBoard)
+        {
+            if (card.getPower() > highestPower)
+            {
                 highestPower = card.getPower();
             }
         }
@@ -191,7 +232,8 @@ public class TradingCard extends JLabel {
      * @param gameModel
      * @param gameWindow
      */
-    public void killEnemyRangedCard(PlayModel gameModel, PlayView gameWindow) {
+    public void killEnemyRangedCard(PlayModel gameModel, PlayView gameWindow)
+    {
         gameModel.p2RangedBoard.clear();
         gameWindow.p2Ranged.removeAll();
         gameWindow.p2Ranged.repaint();
@@ -203,7 +245,8 @@ public class TradingCard extends JLabel {
      * @param gameModel
      * @param gameWindow
      */
-    public void killPlayerRangedCard(PlayModel gameModel, PlayView gameWindow) {
+    public void killPlayerRangedCard(PlayModel gameModel, PlayView gameWindow)
+    {
         gameModel.p1RangedBoard.clear();
         gameWindow.p1Ranged.removeAll();
         gameWindow.p1Ranged.repaint();
@@ -214,9 +257,11 @@ public class TradingCard extends JLabel {
      *
      * @param gameModel
      */
-    public void doublePowerWhenHaveAMagic(PlayModel gameModel) {
+    public void doublePowerWhenHaveAMagic(PlayModel gameModel)
+    {
         int magicCount = 0;
-        for (TradingCard card : gameModel.p1MagicBoard) {
+        for (TradingCard card : gameModel.p1MagicBoard)
+        {
             magicCount++;
         }
         int doubledPower = (int) Math.pow(2, magicCount + 1);
@@ -231,9 +276,11 @@ public class TradingCard extends JLabel {
      *
      * @param gameModel
      */
-    public void doublePowerWhenHaveAMagicForAI(PlayModel gameModel) {
+    public void doublePowerWhenHaveAMagicForAI(PlayModel gameModel)
+    {
         int magicCount = 0;
-        for (TradingCard card : gameModel.p2MagicBoard) {
+        for (TradingCard card : gameModel.p2MagicBoard)
+        {
             magicCount++;
         }
         int doubledPower = (int) Math.pow(2, magicCount + 1);

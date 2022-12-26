@@ -110,16 +110,28 @@ public class PlayController
     public void game()
     {
         if (gameModel.getP1Score() > gameModel.getP2Score())
+        {
             gameWindow.winScreen();
+
+        }
         else
+        {
             gameWindow.loseScreen();
+
+        }
         JPanel gameOverPanel = new JPanel();
         gameOverPanel.setBackground(Color.CYAN);
         JLabel winOrLose;
         if (gameModel.getP1Score() > gameModel.getP2Score())
+        {
             winOrLose = new JLabel("YOU WIN");
+        }
+
         else
+        {
             winOrLose = new JLabel("YOU LOSE");
+
+        }
         winOrLose.setFont(new Font("Arial", Font.BOLD, 75));
 
         JButton playAgainButton = new JButton("Replay");
@@ -128,7 +140,7 @@ public class PlayController
         playAgainButton.addActionListener(new ActionListener()
         {
             @Override
-        public void actionPerformed(ActionEvent e)
+            public void actionPerformed(ActionEvent e)
             {
                 replay();
             }
@@ -136,10 +148,12 @@ public class PlayController
 
         gameOverPanel.setLayout(null);
         gameOverPanel.add(winOrLose);
+
         winOrLose.setSize(500, 300);
         winOrLose.setFont(new Font("Arial", Font.BOLD, 75));
         winOrLose.setVisible(true);
         winOrLose.setLocation(500, 0);
+
         gameOverPanel.add(playAgainButton);
         playAgainButton.setLocation(580, 300);
         gameWindow.setContentPane(gameOverPanel);
@@ -147,13 +161,14 @@ public class PlayController
     }
 
     /**
-     * 在每个回合开始时调用，初始化回合数据
+     * 在每个回合开始时调用
+     * 初始化回合数据
      */
     public void round()
     {
         if (roundCount < MAX_ROUNDS)
         {
-            // Zero out everything for the new round
+            // 每回合重置
             turnCount = 0;
             gameModel.p1TotalPower = 0;
             gameModel.p2TotalPower = 0;
@@ -173,7 +188,8 @@ public class PlayController
     }
 
     /**
-     * 出牌（普通卡牌），同时释放特殊能力，
+     * 出牌（普通卡牌）
+     * 同时释放特殊能力
      *
      * @param card 要出的卡牌（被点击）
      */
@@ -182,10 +198,12 @@ public class PlayController
         if (card.getName().equals("Peasant"))
         {
             card.copyEnemyHighestPower(gameModel);
-        } else if (card.getName().equals("Diseased Zombie"))
+        }
+        else if (card.getName().equals("Diseased Zombie"))
         {
             card.killEnemyRangedCard(gameModel, gameWindow);
-        } else if (card.getName().equals("Magician Apprentice"))
+        }
+        else if (card.getName().equals("Magician Apprentice"))
         {
             card.doublePowerWhenHaveAMagic(gameModel);
         }
@@ -208,7 +226,8 @@ public class PlayController
             if (power1 > power2)
             {
                 gameModel.p1Score++;
-            } else if (power2 > power1)
+            }
+            else if (power2 > power1)
             {
                 gameModel.p2Score++;
             }
@@ -243,7 +262,8 @@ public class PlayController
             if (power1 > power2)
             {
                 gameModel.p1Score++;
-            } else if (power2 > power1)
+            }
+            else if (power2 > power1)
             {
                 gameModel.p2Score++;
             }
@@ -255,7 +275,8 @@ public class PlayController
     }
 
     /**
-     * 点击时调用，同时调用turn函数
+     * 点击时调用
+     * 同时调用turn函数
      *
      * @param card 点击的卡牌
      */
@@ -275,7 +296,8 @@ public class PlayController
     }
 
     /**
-     * 天气牌发挥作用，改变场上的天气
+     * 天气牌发挥作用
+     * 改变场上的天气
      *
      * @param card 即将发挥作用的天气牌
      */
@@ -318,7 +340,8 @@ public class PlayController
     }
 
     /**
-     * 打出普通牌（将卡牌放进出牌区）
+     * 打出普通牌
+     * （将卡牌放进出牌区）
      *
      * @param card 将要放置的卡牌
      */
@@ -351,7 +374,8 @@ public class PlayController
     }
 
     /**
-     * 人机出牌（也会施展对应特殊能力）
+     * 人机出牌
+     * （也会施展对应特殊能力）
      *
      * @param card 人机将要出的牌
      */
@@ -402,7 +426,10 @@ public class PlayController
     }
 
     /**
-     * 再来一局，重置出牌数和回合数，关闭旧窗口，创建新窗口和其他组件
+     * 再来一局
+     * 重置出牌数和回合数
+     * 关闭旧窗口
+     * 创建新窗口和其他组件
      */
     public void replay()
     {

@@ -1,12 +1,20 @@
+/**
+ * WeatherCard.java
+ * 天气牌的相关属性
+ * 和普通卡牌有类似的地方
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Locale;
 
-public class WeatherCard extends JLabel {
+public class WeatherCard extends JLabel
+{
     //Members
     private String weatherName;
 
-    public enum WeatherType {
+    public enum WeatherType
+    {
 
         CLEAR,
         ECLIPSE,
@@ -27,7 +35,8 @@ public class WeatherCard extends JLabel {
      *
      * @param type 卡牌类型
      */
-    WeatherCard(String type) {
+    WeatherCard(String type)
+    {
         super();
         this.isWeather = true;
         weatherName = type;
@@ -35,19 +44,32 @@ public class WeatherCard extends JLabel {
         ImageIcon icon = new ImageIcon("res/image/" + type.toLowerCase() + ".jpg");
         icon = new ImageIcon(icon.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT));
         this.setIcon(icon);
-        if (type.contains("CLEAR")) {
+        if (type.contains("CLEAR"))
+        {
             this.Weathertype = WeatherType.CLEAR;
-        } else if (type.contains("ECLIPSE")) {
+        }
+        else if (type.contains("ECLIPSE"))
+        {
             this.Weathertype = WeatherType.ECLIPSE;
-        } else if (type.contains("FOG")) {
+        }
+        else if (type.contains("FOG"))
+        {
             this.Weathertype = WeatherType.FOG;
-        } else if (type.contains("HEATWAVE")) {
+        }
+        else if (type.contains("HEATWAVE"))
+        {
             this.Weathertype = WeatherType.HEATWAVE;
-        } else if (type.contains("NICEBREEZE")) {
+        }
+        else if (type.contains("NICEBREEZE"))
+        {
             this.Weathertype = WeatherType.NICEBREEZE;
-        } else if (type.contains("RAIN")) {
+        }
+        else if (type.contains("RAIN"))
+        {
             this.Weathertype = WeatherType.RAIN;
-        } else if (type.contains("WIND")) {
+        }
+        else if (type.contains("WIND"))
+        {
             this.Weathertype = WeatherType.WIND;
         }
 
@@ -58,7 +80,8 @@ public class WeatherCard extends JLabel {
      *
      * @param card 要复制的卡牌
      */
-    WeatherCard(WeatherCard card) {
+    WeatherCard(WeatherCard card)
+    {
         super();
         isWeather = true;
         weatherName = card.weatherName;
@@ -74,7 +97,8 @@ public class WeatherCard extends JLabel {
      *
      * @return 天气类型
      */
-    public WeatherType getWeatherType() {
+    public WeatherType getWeatherType()
+    {
         return this.Weathertype;
     }
 }

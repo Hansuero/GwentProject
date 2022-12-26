@@ -35,7 +35,8 @@ public class CardStats
         try
         {
             in = new Scanner(file);
-        } catch (FileNotFoundException e)
+        }
+        catch (FileNotFoundException e)
         {
             throw new RuntimeException(e);
         }

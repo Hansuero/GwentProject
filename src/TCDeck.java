@@ -150,15 +150,18 @@ public class TCDeck
         {
             test.deck.get(i).print();
         }
+
         test.shuffle();
         for (int i = 0; i < cardList.size(); i++)
         {
             test.deck.get(i).print();
         }
+
         for (int i = 0; i < cardList.size(); i++)
         {
             test2.deck.get(i).print();
         }
+
         test2.shuffle();
         for (int i = 0; i < cardList.size(); i++)
         {

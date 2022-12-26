@@ -16,8 +16,14 @@ public class PlayModel
     public static int p1Score, p2Score;
     public static final int HAND_SIZE = 6;
     public static final int BOARD_SIZE = 5;
-    public int p1MeleePower, p1RangedPower, p1MagicPower, p1TotalPower,
-            p2MeleePower, p2RangedPower, p2MagicPower, p2TotalPower;
+    public int p1MeleePower;
+    public int  p1RangedPower;
+    public int  p1MagicPower;
+    public int p1TotalPower;
+    public int p2MeleePower;
+    public int p2RangedPower;
+            public int p2MagicPower;
+            public int p2TotalPower;
     public JLabel[] p1Hand = new JLabel[100];
     public JLabel[] p2Hand = new JLabel[100];
     public ArrayList<TradingCard> p1MeleeBoard;
@@ -202,19 +208,23 @@ public class PlayModel
                     {
                         WeatherCard mid = new WeatherCard("CLEAR");
                         p1Hand[i] = mid;
-                    } else if (tt == 1)
+                    }
+                    else if (tt == 1)
                     {
                         WeatherCard mid = new WeatherCard("ECLIPSE");
                         p1Hand[i] = mid;
-                    } else if (tt == 2)
+                    }
+                    else if (tt == 2)
                     {
                         WeatherCard mid = new WeatherCard("FOG");
                         p1Hand[i] = mid;
-                    } else if (tt == 3)
+                    }
+                    else if (tt == 3)
                     {
                         WeatherCard mid = new WeatherCard("HEATWAVE");
                         p1Hand[i] = mid;
-                    } else if (tt == 4)
+                    }
+                    else if (tt == 4)
                     {
                         WeatherCard mid = new WeatherCard("NICEBREEZE");
                         p1Hand[i] = mid;
@@ -222,7 +232,8 @@ public class PlayModel
                     {
                         WeatherCard mid = new WeatherCard("RAIN");
                         p1Hand[i] = mid;
-                    } else if (tt == 6)
+                    }
+                    else if (tt == 6)
                     {
                         WeatherCard mid = new WeatherCard("WIND");
                         p1Hand[i] = mid;
@@ -240,7 +251,7 @@ public class PlayModel
 
     /**
      * AI的出牌
-     * 不是很聪明的AI，它会出手中的第一张牌。
+     * 不是很聪明的AI，它会出手中的第一张牌
      * 考虑到这可能会有些无趣，将来会改善这个AI
      *
      * @return the "leftmost" card in p2Hand
